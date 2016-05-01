@@ -1,0 +1,25 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:app="http://schemas.android.com/apk/res-auto"
+      xmlns:tools="http://schemas.android.com/tools"
+      tools:context=".activity.MainActivity">
+
+    <item android:id="@+id/action_messages"
+          android:title="@string/action_messages"
+          android:icon="@android:drawable/ic_menu_compass"
+          android:orderInCategory="80"
+          app:showAsAction="never"/>
+
+    <item android:id="@+id/action_orders"
+          android:title="@string/action_orders"
+          android:icon="@android:drawable/ic_lock_idle_lock"
+          app:ico_icon="fon-chat"
+          app:ico_size="24sp"
+          android:orderInCategory="95"
+          app:showAsAction="always"/>
+
+    <item android:id="@+id/action_settings"
+          android:title="@string/action_settings"
+          android:icon="@android:drawable/ic_secure"
+          android:orderInCategory="100"
+          app:showAsAction="always"/>
+</menu>

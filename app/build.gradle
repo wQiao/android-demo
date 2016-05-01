@@ -1,0 +1,67 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 23
+    buildToolsVersion "23.0.3"
+
+    defaultConfig {
+        applicationId "org.wqiao.coolweather"
+        minSdkVersion 15
+        targetSdkVersion 23
+        versionCode 1
+        versionName "1.0"
+    }
+    dataBinding {   // gradle tool 1.5.0 support
+        enabled = true
+    }
+
+    dexOptions {
+        //dexInProcess false // gradle tool 2.1.0 support
+  //      maxProcessCount = 4 // this is the default value gradle tool  2.0.0 support
+    }
+    aaptOptions {
+        noCompress 'foo', 'bar'
+        ignoreAssetsPattern '!.svn:!.git:!.ds_store:!*.scc:.*:<dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~'
+    }
+    buildTypes {
+        debug {
+            minifyEnabled false
+            useProguard false
+        }
+        release {
+            minifyEnabled true
+            useProguard true // this is a default setting
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+ext {
+    supportVersion = '23.3.0'
+    retrofitVersion = '2.0.2'
+    picassoVersion = '2.5.2'
+    iconicsVersion = '2.5.11'
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+
+    testCompile "junit:junit:4.12"
+
+//    compile 'com.android.support:support-v4:23.3.0'
+    compile "com.android.support:appcompat-v7:${supportVersion}"
+
+    compile "com.android.support:design:${supportVersion}"
+
+    compile "com.android.support:recyclerview-v7:${supportVersion}"
+
+    compile "com.squareup.retrofit2:retrofit:${retrofitVersion}"
+
+    compile "com.squareup.retrofit2:converter-gson:${retrofitVersion}"
+
+//   compile "com.squareup.okhttp3:okhttp:3.2.0"
+
+    compile "com.squareup.picasso:picasso:${picassoVersion}"  //图片加载
+
+    compile "com.mikepenz:iconics-core:${iconicsVersion}@aar" //icon font
+
+}
