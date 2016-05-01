@@ -29,17 +29,13 @@ public class OrderRecyclerViewAdapter extends RecyclerView.Adapter<OrderRecycler
 
     @Override
     public BindingHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-//        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.fragment_order_item, parent, false);
         FragmentOrderItemBinding binding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()),R.layout.fragment_order_item,parent,false);
         return new BindingHolder(binding);
     }
 
     @Override
     public void onBindViewHolder(final BindingHolder holder, int position) {
-//        holder.mItem = mValues.get(position);
-//        holder.mIdView.setText(mValues.get(position).id+"");
-//        holder.mContentView.setText(mValues.get(position).content);
-        holder.binding.setOrder( mValues.get(position));
+        holder.binding.setOrder(mValues.get(position));
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -2,8 +2,10 @@ package org.wqiao.coolweather.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.view.LayoutInflaterFactory;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.View;
 import android.widget.AbsListView;
@@ -19,7 +21,9 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by wQiao on 16-4-15.
@@ -27,7 +31,10 @@ import java.util.List;
 public class UserListActivity extends BaseActivity {
 
     private UserAdapter adapter;
+
     private User selected;
+
+    private SwipeRefreshLayout mSwipeLayout;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -44,8 +51,8 @@ public class UserListActivity extends BaseActivity {
             @Override
             public void onScrollStateChanged(AbsListView view, int scrollState) {
                 if (view.getLastVisiblePosition() == view.getCount() - 1) {
-                    //((UserAdapter)view.getAdapter()).loadData();
-                    loadData(view.getLastVisiblePosition());
+                    ((UserAdapter)view.getAdapter()).loadData();
+//                    loadData(view.getLastVisiblePosition());
                 }
             }
 
@@ -54,16 +61,32 @@ public class UserListActivity extends BaseActivity {
 
             }
         });
+
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 ListView listView = (ListView) parent;
                 selected = (User) listView.getItemAtPosition(position);
-//                selected.setEmail("Cike456@163.com");
                 Intent intent = new Intent(UserListActivity.this, UserDetailActivity.class);
                 intent.putExtra("user", selected);
                 startActivityForResult(intent, 1);
 
+            }
+        });
+
+        mSwipeLayout = (SwipeRefreshLayout)findViewById(R.id.swipe_list_user);
+        mSwipeLayout.setDistanceToTriggerSync(200);// 设置手指在屏幕下拉多少距离会触发下拉刷新
+        mSwipeLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                adapter.clearData();
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        adapter.loadData();
+                        mSwipeLayout.setRefreshing(false);
+                    }
+                }, 3000);
             }
         });
     }
@@ -80,7 +103,6 @@ public class UserListActivity extends BaseActivity {
                     Log.i("User: email", user.getEmail());
                     selected.setName(user.getName());
                     selected.setEmail(user.getEmail());
-                    //adapter.notifyDataSetChanged();
                 }
             default:
         }
@@ -91,6 +113,7 @@ public class UserListActivity extends BaseActivity {
         super.onDestroy();
         selected = null;
         adapter = null;
+        mSwipeLayout = null;
     }
 
     // ************** 自定义方法*****************
@@ -102,7 +125,9 @@ public class UserListActivity extends BaseActivity {
     private void loadData(int offset) {
         UserRestService service = AppApi.create(UserRestService.class);
 
-        Call<List<User>> call = service.queryParams(111);// 测试 @TODO(移除 User  @SerializeName('title'))
+        Map<String,Object> queryParams = new HashMap<>();
+
+        Call<List<User>> call = service.query(0,20,queryParams);
 
         call.enqueue(new Callback<List<User>>() {
             @Override

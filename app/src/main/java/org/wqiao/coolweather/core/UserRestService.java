@@ -19,7 +19,7 @@ public interface UserRestService {
                 "User-Agent: Your-App-Name"
         })*/
     @GET("api/users")
-    Call<List<User>> query(@Query(KEY_LIMIT) int limit, @Query(KEY_OFFSET) int offset, @QueryMap Map<String, String> options);//options 动态参数
+    Call<List<User>> query(@Query(KEY_LIMIT) int limit, @Query(KEY_OFFSET) int offset, @QueryMap Map<String, Object> options);//options 动态参数
 
     @GET("api/users/{id}")
     Call<User> getUser(@Path("id") Long id);
@@ -33,6 +33,4 @@ public interface UserRestService {
     @DELETE("api/users/{id}/")
     Call<Void> delete(@Path("id") Long id);
 
-    @GET("params/3/{type}")
-    Call<List<User>> queryParams(@Path("type") int type);
 }

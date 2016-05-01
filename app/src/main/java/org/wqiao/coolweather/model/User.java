@@ -5,7 +5,6 @@ import android.databinding.Bindable;
 import android.databinding.BindingAdapter;
 import android.graphics.drawable.Drawable;
 import android.widget.ImageView;
-import com.google.gson.annotations.SerializedName;
 import com.squareup.picasso.Picasso;
 import org.wqiao.coolweather.BR;
 import org.wqiao.coolweather.R;
@@ -19,7 +18,6 @@ public class User extends BaseObservable implements Serializable {
 
     public  Long id;
 
-    @SerializedName("title")
     private String name;
 
     private String email;

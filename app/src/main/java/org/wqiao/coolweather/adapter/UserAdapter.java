@@ -20,39 +20,50 @@ import java.util.List;
  */
 public class UserAdapter extends BaseAdapter {
     private LayoutInflater inflater;
-    private List<User> projects  =new ArrayList<>();
-//    private UserListActivity context;
-    private int index =0;
+    private List<User> projects = new ArrayList<>();
+    //    private UserListActivity context;
+    private int index = 1;
 
     public UserAdapter(Context context) {
-        this.inflater=LayoutInflater.from(context);
+        this.inflater = LayoutInflater.from(context);
 //        this.context=context;
         initData();
 //        resourceId = textViewResourceId;
     }
-    private void initData(){
-        for (int i=0;i<15;i++){
-            index=index+1;
+
+    private void initData() {
+        for (int i = 0; i < 15; i++) {
             User u = new User();
             u.setId((long) index);
-            u.setName("wQiao"+index);
-            u.setEmail("wQiao"+index+"@163.com");
+            u.setName("wQiao" + index);
+            u.setEmail("wQiao" + index + "@163.com");
             StringBuilder logoUrl = new StringBuilder("http://image.wQiao.me/static/avatar");
-            if(index%2==0) {
+            if (index % 2 == 0) {
                 logoUrl.append("1");
-            }else{
+            } else {
                 logoUrl.append("2");
             }
             logoUrl.append(".jpg");
             u.setLogoUrl(logoUrl.toString());
             projects.add(u);
+            index++;
         }
 
     }
 
+    public void clearData() {
+        projects.clear();
+        index=1;
+        notifyDataSetChanged();
+    }
 
-    public void addItems(@Nullable List<User> items){
-        if(!items.isEmpty()) {
+    public void loadData() {
+        initData();
+        notifyDataSetChanged();
+    }
+
+    public void addItems(@Nullable List<User> items) {
+        if (!items.isEmpty()) {
             projects.addAll(items);
             notifyDataSetChanged();
         }
@@ -76,7 +87,7 @@ public class UserAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
-        ViewUserItemBinding binding ;
+        ViewUserItemBinding binding;
 
         if (convertView == null) {
             binding = DataBindingUtil.inflate(inflater, R.layout.view_user_item, parent, false);
@@ -85,7 +96,7 @@ public class UserAdapter extends BaseAdapter {
         } else {
             binding = (ViewUserItemBinding) convertView.getTag();
         }
-        User user  = projects.get(position);
+        User user = projects.get(position);
         binding.setUser(user);
 //        View view = inflater.inflate(R.layout.view_user_item,null);
 //        UserItemBinding binding = UserItemBinding.inflate(inflater, null, false);
@@ -93,7 +104,7 @@ public class UserAdapter extends BaseAdapter {
 //        TextView userEmail = (TextView) view.findViewById(R.id.user_email);
 //        userName.setText(user.getName());
 //        userEmail.setText(user.getEmail());
-        Log.d("UserAdapter", "getView: userName:"+user.getName()+" email:"+user.getEmail());
+        Log.d("UserAdapter", "getView: userName:" + user.getName() + " email:" + user.getEmail());
         return convertView;
     }
 //    public void  updateData(User user){
