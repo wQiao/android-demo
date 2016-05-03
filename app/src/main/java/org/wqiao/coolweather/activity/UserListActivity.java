@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
-import android.support.v4.view.LayoutInflaterFactory;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.View;
@@ -14,8 +13,8 @@ import android.widget.ListView;
 import android.widget.Toast;
 import org.wqiao.coolweather.R;
 import org.wqiao.coolweather.adapter.UserAdapter;
-import org.wqiao.coolweather.core.AppApi;
-import org.wqiao.coolweather.core.UserRestService;
+import org.wqiao.coolweather.rest.RestClient;
+import org.wqiao.coolweather.rest.UserRestService;
 import org.wqiao.coolweather.model.User;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -123,7 +122,7 @@ public class UserListActivity extends BaseActivity {
      * @param offset
      */
     private void loadData(int offset) {
-        UserRestService service = AppApi.create(UserRestService.class);
+        UserRestService service = RestClient.create(UserRestService.class);
 
         Map<String,Object> queryParams = new HashMap<>();
 

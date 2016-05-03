@@ -1,4 +1,4 @@
-package org.wqiao.coolweather.core;
+package org.wqiao.coolweather.rest;
 
 import org.wqiao.coolweather.model.Param;
 import retrofit2.Call;

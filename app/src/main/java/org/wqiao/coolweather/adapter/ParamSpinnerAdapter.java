@@ -6,8 +6,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Toast;
-import org.wqiao.coolweather.core.AppApi;
-import org.wqiao.coolweather.core.ParamRestService;
+import org.wqiao.coolweather.rest.RestClient;
+import org.wqiao.coolweather.rest.ParamRestService;
 import org.wqiao.coolweather.databinding.ItemSpinParamBinding;
 import org.wqiao.coolweather.model.Param;
 import retrofit2.Call;
@@ -62,7 +62,7 @@ public class ParamSpinnerAdapter extends BaseAdapter  {
      *   远程请求数据（测试）
      */
     private void loadData() {
-        ParamRestService service = AppApi.create(ParamRestService.class);
+        ParamRestService service = RestClient.create(ParamRestService.class);
 
         Call<List<Param>> call = service.query(111);
 
