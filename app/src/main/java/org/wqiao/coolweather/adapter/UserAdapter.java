@@ -90,21 +90,37 @@ public class UserAdapter extends BaseAdapter {
         ViewUserItemBinding binding;
 
         if (convertView == null) {
+
             binding = DataBindingUtil.inflate(inflater, R.layout.view_user_item, parent, false);
+
             convertView = binding.getRoot();
+
             convertView.setTag(binding);
+
         } else {
+
             binding = (ViewUserItemBinding) convertView.getTag();
+
         }
+
         User user = projects.get(position);
+
         binding.setUser(user);
+
 //        View view = inflater.inflate(R.layout.view_user_item,null);
+
 //        UserItemBinding binding = UserItemBinding.inflate(inflater, null, false);
+
 //        TextView userName = (TextView) view.findViewById(R.id.user_name);
+
 //        TextView userEmail = (TextView) view.findViewById(R.id.user_email);
+
 //        userName.setText(user.getName());
+
 //        userEmail.setText(user.getEmail());
+
         Log.d("UserAdapter", "getView: userName:" + user.getName() + " email:" + user.getEmail());
+
         return convertView;
     }
 //    public void  updateData(User user){
