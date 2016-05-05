@@ -36,6 +36,12 @@ public class MainActivity extends BaseActivity   implements NavigationView.OnNav
 
         Log.d("MainActivity",this.toString());
 
+        setUpFloatingActionButton();
+
+        setupDrawerContent(toolbar);
+    }
+
+    private void setUpFloatingActionButton() {
         FloatingActionButton fabtn = (FloatingActionButton) findViewById(R.id.main_fab);
         fabtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -47,7 +53,9 @@ public class MainActivity extends BaseActivity   implements NavigationView.OnNav
                 overridePendingTransition(R.anim.slide_in_from_right, R.anim.slide_out_to_left); //动画效果
             }
         });
+    }
 
+    private void setupDrawerContent(Toolbar toolbar) {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
