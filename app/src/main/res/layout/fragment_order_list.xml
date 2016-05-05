@@ -7,6 +7,7 @@
         android:name="org.wqiao.coolweather.activity.fu.OrderFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
         app:layoutManager="LinearLayoutManager"
         tools:context=".activity.fu.OrderListFragment"
         tools:listitem="@layout/fragment_order_item"/>

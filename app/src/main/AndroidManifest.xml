@@ -20,18 +20,20 @@
                 android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
+
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-
-
-        <activity android:name=".activity.FirstActivity" android:launchMode="singleTask" />
-
-        <activity android:name=".activity.UserListActivity" android:launchMode="singleTask" />
-
+        <activity
+                android:name=".activity.FirstActivity"
+                android:launchMode="singleTask"/>
+        <activity
+                android:name=".activity.UserListActivity"
+                android:launchMode="singleTask"/>
         <activity android:name=".activity.UserDetailActivity"/>
-
-        <activity android:name=".activity.fu.OrderActivity"  android:launchMode="singleTask" />
+        <activity
+                android:name=".activity.fu.OrderActivity"
+                android:launchMode="singleTask"/>
     </application>
 
 </manifest>
