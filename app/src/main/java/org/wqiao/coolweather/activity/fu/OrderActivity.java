@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import org.wqiao.coolweather.R;
 import org.wqiao.coolweather.activity.BaseActivity;
@@ -14,10 +15,13 @@ public class OrderActivity extends BaseActivity implements OrderListFragment.OnL
     private final String tabListTag = "tab1", tabDetailTag = "tab2";
 
     private Order selected;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order);
+
+        initToolbar();
 
         FragmentManager fm = getSupportFragmentManager();
         // 使用R.id.fragment_order_container，向FragmentManager请求获取fragment。如要获取的fragment在队列中已经存在，FragmentManager随即会将之返还。
@@ -33,6 +37,12 @@ public class OrderActivity extends BaseActivity implements OrderListFragment.OnL
                         .commit();
             }
         }
+    }
+
+    private void initToolbar() {
+        Toolbar toolbar = (Toolbar) findViewById(R.id.m_toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     @Override
@@ -95,9 +105,9 @@ public class OrderActivity extends BaseActivity implements OrderListFragment.OnL
     public void onBackPressed() {
         FragmentManager fm = getSupportFragmentManager();
         Fragment fragment = fm.findFragmentByTag(tabDetailTag);
-        if(fragment !=null && fragment.isVisible()){
+        if (fragment != null && fragment.isVisible()) {
             backToListFragment();
-        }else {
+        } else {
             super.onBackPressed();
         }
     }
@@ -106,6 +116,6 @@ public class OrderActivity extends BaseActivity implements OrderListFragment.OnL
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        selected=null;
+        selected = null;
     }
 }

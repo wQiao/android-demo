@@ -3,6 +3,7 @@ package org.wqiao.coolweather.activity;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import org.wqiao.coolweather.R;
@@ -20,17 +21,20 @@ public class FirstActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 //        setContentView(R.layout.activity_first);
-       final ActivityFirstBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_first);
+        ActivityFirstBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_first);
 
-       // getActionBar().setDisplayHomeAsUpEnabled(true);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.m_toolbar);
+
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         Intent data = getIntent();
-        Log.i("userName --->",data.getStringExtra("userName"));
+        Log.i("userName --->", data.getStringExtra("userName"));
 
-        binding.button1.setOnClickListener( new View.OnClickListener() {
+        binding.button1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(FirstActivity.this,UserListActivity.class);
+                Intent intent = new Intent(FirstActivity.this, UserListActivity.class);
                 startActivity(intent);
             }
         });
@@ -41,9 +45,9 @@ public class FirstActivity extends BaseActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 //        super.onActivityResult(requestCode, resultCode, data);
-        switch(requestCode){
+        switch (requestCode) {
             case 1:
-                if(resultCode ==RESULT_OK){
+                if (resultCode == RESULT_OK) {
 
                 }
             default:

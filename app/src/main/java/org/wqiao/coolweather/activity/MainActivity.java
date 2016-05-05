@@ -71,7 +71,7 @@ public class MainActivity extends BaseActivity   implements NavigationView.OnNav
     }
 
     private Toolbar initToolbar() {
-        Toolbar toolbar = (Toolbar) findViewById(R.id.main_toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.m_toolbar);
         setSupportActionBar(toolbar);
         //隐藏标题
         getSupportActionBar().setDisplayShowTitleEnabled(false);

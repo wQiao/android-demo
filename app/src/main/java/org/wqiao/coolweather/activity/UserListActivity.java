@@ -5,12 +5,10 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
-import android.widget.AbsListView;
-import android.widget.AdapterView;
-import android.widget.ListView;
-import android.widget.Toast;
+import android.widget.*;
 import org.wqiao.coolweather.R;
 import org.wqiao.coolweather.adapter.UserAdapter;
 import org.wqiao.coolweather.rest.RestClient;
@@ -38,8 +36,37 @@ public class UserListActivity extends BaseActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_user_list);
 
+        initToolbar();
+
+        initListView();
+
+        initSwipeLayout();
+    }
+
+    private void initSwipeLayout() {
+        mSwipeLayout = (SwipeRefreshLayout)findViewById(R.id.swipe_list_user);
+        mSwipeLayout.setDistanceToTriggerSync(200);// 设置手指在屏幕下拉多少距离会触发下拉刷新
+        //设置样式刷新显示的位置
+//        mSwipeLayout.setProgressViewOffset(true, -20, 100);
+        mSwipeLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                adapter.clearData();
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        adapter.loadData();
+                        mSwipeLayout.setRefreshing(false);
+                    }
+                }, 3000);
+            }
+        });
+    }
+
+    private void initListView() {
         adapter = new UserAdapter(UserListActivity.this);
 
         ListView listView = (ListView) findViewById(R.id.listview_user);
@@ -72,22 +99,12 @@ public class UserListActivity extends BaseActivity {
 
             }
         });
+    }
 
-        mSwipeLayout = (SwipeRefreshLayout)findViewById(R.id.swipe_list_user);
-        mSwipeLayout.setDistanceToTriggerSync(200);// 设置手指在屏幕下拉多少距离会触发下拉刷新
-        mSwipeLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                adapter.clearData();
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        adapter.loadData();
-                        mSwipeLayout.setRefreshing(false);
-                    }
-                }, 3000);
-            }
-        });
+    private void initToolbar() {
+        Toolbar toolbar = (Toolbar) findViewById(R.id.m_toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     @Override
