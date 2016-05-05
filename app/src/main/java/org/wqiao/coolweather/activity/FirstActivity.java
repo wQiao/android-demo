@@ -5,11 +5,9 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import org.wqiao.coolweather.R;
 import org.wqiao.coolweather.adapter.ParamSpinnerAdapter;
 import org.wqiao.coolweather.databinding.ActivityFirstBinding;
-import org.wqiao.coolweather.model.User;
 
 public class FirstActivity extends BaseActivity {
 
@@ -23,6 +21,8 @@ public class FirstActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
 //        setContentView(R.layout.activity_first);
        final ActivityFirstBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_first);
+
+       // getActionBar().setDisplayHomeAsUpEnabled(true);
 
         Intent data = getIntent();
         Log.i("userName --->",data.getStringExtra("userName"));
